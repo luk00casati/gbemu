@@ -1,3 +1,4 @@
+#!/bin/sh
 docker build -t cc/dev:1.0 .
 docker run --name cc-container cc/dev:1.0
 docker cp cc-container:/app/myapp ./build/myapp
