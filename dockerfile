@@ -18,9 +18,9 @@ RUN gcc -shared -o libemu.so emu.o cpu.o cart.o bus.o cpu_util.o instructions.o 
 
 
 #main
-RUN gcc -c /app/gbemu/main.c -I/app/include -o /app/gbemu/main.o
+RUN gcc -c /app/src/main.c -I/app/include -o /app/src/main.o
 
-RUN gcc -o /app/myapp /app/gbemu/main.o /app/libemu.so -lSDL2 -lSDL2_ttf
+RUN gcc -o /app/myapp /app/src/main.o /app/libemu.so -lSDL2 -lSDL2_ttf
 
 #tests
 RUN gcc -c /app/tests/check_gbe.c -I/app/include -o /app/tests/check_gbe.o
