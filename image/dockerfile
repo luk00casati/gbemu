@@ -1,0 +1,3 @@
+FROM debian
+
+RUN apt update && apt install -y libsdl2-dev libsdl2-ttf-dev check libsubunit-dev build-essential
