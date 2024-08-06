@@ -4,7 +4,7 @@
 cpu_context ctx = {0};
 
 void cpu_init() {
-
+    ctx.regs.pc = 0x100;
 }
 
 static void fetch_instruction(){
@@ -57,14 +57,24 @@ static void fetch_data(){
 }
 
 static void execute(){
-    printf("not executing yet\n");
+    IN_PROC proc = inst_get_processor(ctx.cur_inst -> type);
+
+    if (!proc){
+        NO_IMPL
+    }
+
+    proc(&ctx);
 }
 
 bool cpu_step() {
     if (!ctx.halted){
+        u16 pc = ctx.regs.pc;
         fetch_instruction();
         fetch_data();
+
+        printf("executing instruction %02X\tPC: %04X\n", ctx.cur_opcode, pc);
+
         execute();
     }
-    return false;
+    return true;
 }
