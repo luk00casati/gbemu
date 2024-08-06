@@ -9,8 +9,11 @@ COPY . .
 RUN gcc -c -fPIC /app/lib/emu.c -I/app/include
 RUN gcc -c -fPIC /app/lib/cpu.c -I/app/include
 RUN gcc -c -fPIC /app/lib/cart.c -I/app/include
+RUN gcc -c -fPIC /app/lib/bus.c -I/app/include
+RUN gcc -c -fPIC /app/lib/instructions.c -I/app/include
+RUN gcc -c -fPIC /app/lib/cpu_util.c -I/app/include
 
-RUN gcc -shared -o libemu.so emu.o cpu.o cart.o
+RUN gcc -shared -o libemu.so emu.o cpu.o cart.o bus.o cpu_util.o instructions.o
 
 
 #main
