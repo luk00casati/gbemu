@@ -19,8 +19,7 @@ typedef struct
 
 typedef struct{
     cpu_registers regs;
-    //current fetch
-    u16 fetched_data;
+    u16 fetched_data; /* current fetch */
     u16 mem_dest;
     bool dest_is_mem;
     u8 cur_opcode;

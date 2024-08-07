@@ -82,7 +82,9 @@ typedef enum {
     IN_EI,
     IN_RST,
     IN_ERR,
-    //CB instructions...
+
+    /* CB instructions */
+
     IN_RLC, 
     IN_RRC,
     IN_RL, 
