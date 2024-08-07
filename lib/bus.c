@@ -1,5 +1,7 @@
 #include <bus.h>
 #include <cart.h>
+#include <ram.h>
+#include <cpu.h>
 
 // 0x0000 - 0x3FFF : ROM Bank 0
 // 0x4000 - 0x7FFF : ROM Bank 1 - Switchable
@@ -19,9 +21,35 @@ u8 bus_read(u16 address) {
     if (address < 0x8000) {
         //ROM Data
         return cart_read(address);
+    } else if (address < 0xA000){
+        //char/map data
+        printf("unsupported bus_read(%04X)\n", address);
+        NO_IMPL
+    } else if (address < 0xC000){
+        //cartrige ram
+        return cart_read(address);
+    }  else if (address < 0xE000){
+        //wram
+        return wram_read(address);
+    }  else if (address < 0xFE00){
+        //reserve echo ram
+        return 0;
+    }  else if (address < 0xFEA0){
+        //oam
+        printf("unsupported bus_read(%04X)\n", address);
+        NO_IMPL
+    }  else if (address < 0xFF00){
+        //reserve unusable
+        return 0;
+    }  else if (address < 0xFF80){
+        //io registers
+        printf("unsupported bus_read(%04X)\n", address);
+        NO_IMPL
+    } else if (address == 0xFFFF){
+        //cpu enable registers
+        return cpu_get_ie_register();
     }
-
-    NO_IMPL
+    return hram_read(address);
 }
 
 void bus_write(u16 address, u8 value) {
@@ -29,9 +57,39 @@ void bus_write(u16 address, u8 value) {
         //ROM Data
         cart_write(address, value);
         return;
+    }else if (address < 0xA000){
+        //char/map data
+        printf("unsupported bus_write(%04X)\n", address);
+        NO_IMPL
+    } else if (address < 0xC000){
+        //cartrige ram
+        return cart_write(address, value);
+    }  else if (address < 0xE000){
+        //wram
+        return wram_write(address, value);
+    }  else if (address < 0xFE00){
+        //reserve echo ram
+        //return 0;
+    }  else if (address < 0xFEA0){
+        //oam
+        printf("unsupported bus_write(%04X)\n", address);
+        NO_IMPL
+    }  else if (address < 0xFF00){
+        //reserve unusable
+        //return 0;
+    }  else if (address < 0xFF80){
+        //io registers
+        printf("unsupported bus_write(%04X)\n", address);
+        //NO_IMPL
+    } else if (address == 0xFFFF){
+        //cpu enable registers
+        cpu_set_ie_register(value);
+    } else {
+        hram_write(address, value);
     }
 
-    NO_IMPL
+    printf("unsupported bus_write(%04X)\n", address);
+    //NO_IMPL
 }
 
 u16 bus_read16(u16 address) {
