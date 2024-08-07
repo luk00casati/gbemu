@@ -3,7 +3,7 @@
 #include <cart.h>
 #include <cpu.h>
 #include <SDL2/SDL.h>
-//#include <SDL2/SDL_ttf.h>
+#include <SDL2/SDL_ttf.h>
 
 /* 
   Emu components:
@@ -67,6 +67,6 @@ int emu_run(int argc, char **argv) {
     return 0;
 }
 
-void emu_cycles(int cpu_cycles){
-    //TODO
-    }
+void emu_cycles(int cpu_cycles) {
+    //TODO...
+}
