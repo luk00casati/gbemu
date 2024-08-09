@@ -56,6 +56,7 @@ void cpu_set_reg(reg_type rt, u16 val) {
     }
 }
 
+
 u8 cpu_read_reg8(reg_type rt) {
     switch(rt) {
         case RT_A: return ctx.regs.a;
